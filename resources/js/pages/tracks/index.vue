@@ -9,20 +9,7 @@ export default {
         // eslint-disable-next-line vue/no-reserved-component-names
         Head,
         MusicLayout
-    },
-
-    data() {
-        return {
-            firstName: 'John',
-            lastname: 'Doe'
-        };
-    },
-
-    computed: {
-        fullName() {
-            return `${this.firstName} ${this.lastname}`;
-        }
-    },
+    }
 };
 </script>
 

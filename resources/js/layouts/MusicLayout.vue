@@ -1,6 +1,13 @@
 <script lang="ts">
+import { Link } from '@inertiajs/vue3';
+
 export default {
-    name: 'MusicLayout'
+    name: 'MusicLayout',
+
+    components: {
+        // eslint-disable-next-line vue/no-reserved-component-names
+        Link
+    }
 };
 </script>
 
@@ -13,11 +20,17 @@ export default {
                         <div class="flex flex-shrink-0 items-center">
                             <img class="h-8 w-auto"
                                 src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg"
-                                alt="Your Company">
+                                alt="Your Company"
+                            />
                         </div>
                         <div class="hidden sm:ml-6 sm:block">
                             <div class="flex space-x-4">
-
+                                <Link
+                                    class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                                    :href="route('tracks.index')"
+                                >
+                                    Musiques
+                                </Link>
                             </div>
                         </div>
                     </div>
