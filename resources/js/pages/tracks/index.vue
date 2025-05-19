@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import MusicLayout from '@/layouts/MusicLayout.vue';
+import TrackListItem from '@/components/TrackListItem.vue';
 import { Head } from '@inertiajs/vue3';
 import type { Track } from '@/types/Track';
 
@@ -17,10 +18,12 @@ defineProps<Props>();
         <template #title>Tracks</template>
         <template #action>Action</template>
         <template #content>
-            <ul class="pb-8">
-                <li v-for="track in tracks" :key="track.uuid" class="mx-8 list-disc">
-                    {{ track.title }} - {{ track.artist }}
-                </li>
+            <ul class="grid gap-2 p-8">
+                <TrackListItem 
+                    v-for="track in tracks" 
+                    :key="track.uuid" 
+                    :track="track"
+                />
             </ul>
         </template>
     </MusicLayout>
