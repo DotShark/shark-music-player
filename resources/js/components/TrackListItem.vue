@@ -11,7 +11,7 @@ defineProps<{
         <div class="flex-shrink-0 w-12 h-12 rounded overflow-hidden bg-gray-700">
             <img 
                 v-if="track.image"
-                :src="track.image"
+                :src="`/storage/track-images/${track.image}`"
                 alt=""
                 class="w-full h-full object-cover"
             />
