@@ -3,7 +3,7 @@ import { Link } from '@inertiajs/vue3';
 </script>
 
 <template>
-    <div>
+    <div class="flex flex-col h-screen">
         <nav class="bg-gray-800">
             <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
                 <div class="relative flex h-16 items-center justify-between">
@@ -36,17 +36,18 @@ import { Link } from '@inertiajs/vue3';
                 </div>
             </div>
         </nav>
-    </div>
-
-    <div class="px-16">
-        <div class="flex justify-between items-center">
-            <h4 class="text-3xl font-bold my-6">
-                <slot name="title" />
-            </h4>
-            <div>
-                <slot name="action" />
+        <div class="px-16 flex flex-col grow">
+            <div class="flex justify-between items-center">
+                <h4 class="text-3xl font-bold my-6">
+                    <slot name="title" />
+                </h4>
+                <div>
+                    <slot name="action" />
+                </div>
+            </div>
+            <div class="flex flex-col grow">
+                <slot name="content" />
             </div>
         </div>
-        <slot name="content" />
     </div>
 </template>

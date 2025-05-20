@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import MusicLayout from '@/layouts/MusicLayout.vue';
 import TrackListItem from '@/components/TrackListItem.vue';
+import PrimaryButton from '@/components/PrimaryButton.vue';
 import { Head } from '@inertiajs/vue3';
 import type { Track } from '@/types/Track';
 
@@ -16,7 +17,11 @@ defineProps<Props>();
 
     <MusicLayout>
         <template #title>Tracks</template>
-        <template #action>Action</template>
+        <template #action>
+            <PrimaryButton :href="route('tracks.create')">
+                Add a track
+            </PrimaryButton>
+        </template>
         <template #content>
             <ul class="grid gap-2 p-8">
                 <TrackListItem 
