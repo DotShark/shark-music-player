@@ -51,7 +51,7 @@ function submit() {
                     label="Displayed"
                     v-model="form.displayed"
                 />
-                <button type="submit" class="p-2 bg-blue-500 rounded">Update</button>
+                <button type="submit" class="p-2 bg-blue-500 rounded cursor-pointer">Update</button>
             </form>
         </template>
     </MusicLayout>

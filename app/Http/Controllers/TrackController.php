@@ -7,6 +7,7 @@ use App\Models\Track;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Storage;
 
 class TrackController extends Controller
 {
@@ -76,5 +77,21 @@ class TrackController extends Controller
 
         return redirect()->route('tracks.index')
             ->with('message', 'Track updated successfully');
+    }
+
+    public function destroy(Track $track)
+    {
+        // Delete the track files if they exist
+        if ($track->file_name) {
+            Storage::delete('tracks/' . $track->file_name);
+        }
+        if ($track->image) {
+            Storage::delete('track-images/' . $track->image);
+        }
+
+        $track->delete();
+
+        return redirect()->route('tracks.index')
+            ->with('message', 'Track deleted successfully');
     }
 }

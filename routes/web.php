@@ -21,6 +21,7 @@ Route::prefix('tracks')->name('tracks.')->group(function () {
     Route::post('/', [TrackController::class, 'store'])->name('store');
     Route::get('/{track}/edit', [TrackController::class, 'edit'])->name('edit');
     Route::patch('/{track}', [TrackController::class, 'update'])->name('update');
+    Route::delete('/{track}', [TrackController::class, 'destroy'])->name('destroy');
 });
 
 require __DIR__.'/settings.php';

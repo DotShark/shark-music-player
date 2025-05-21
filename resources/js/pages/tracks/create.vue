@@ -60,7 +60,7 @@ function submit() {
                     accept="image/*"
                     v-model="form.image"
                 />
-                <button type="submit" class="p-2 bg-blue-500 rounded">Create</button>
+                <button type="submit" class="p-2 bg-blue-500 rounded cursor-pointer">Create</button>
             </form>
         </template>
     </MusicLayout>
