@@ -2,15 +2,18 @@
 import MusicLayout from '@/layouts/MusicLayout.vue';
 import TrackItem from '@/components/Track.vue';
 import PrimaryButton from '@/components/PrimaryButton.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, usePage } from '@inertiajs/vue3';
 import type { Track } from '@/types/Track';
 import { ref, onUnmounted, computed } from 'vue';
+import { Auth } from '@/types';
 
 type Props = {
     tracks: Track[]
 }
 
 const props = defineProps<Props>();
+
+const page = usePage();
 
 const searchFilter = ref('');
 const audio = ref<HTMLAudioElement | null>(null);
@@ -75,7 +78,7 @@ onUnmounted(() => {
     <MusicLayout>
         <template #title>Tracks</template>
         <template #action>
-            <PrimaryButton :href="route('tracks.create')">
+            <PrimaryButton v-if="(page.props.auth as Auth).isAdmin" :href="route('tracks.create')">
                 Add a track
             </PrimaryButton>
         </template>

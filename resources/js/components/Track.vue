@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import type { Track } from '@/types/Track';
 import { Play, Pause, Pencil, Trash } from 'lucide-vue-next';
-import { Link, router } from '@inertiajs/vue3';
+import { Link, router, usePage } from '@inertiajs/vue3';
+import { Auth } from '@/types';
 
 defineProps<{
     track: Track,
     isPlaying: boolean,
     progress: number
 }>();
+
+const page = usePage();
 
 const emit = defineEmits<{
     'toggle-play': [trackId: string]
@@ -53,12 +56,14 @@ const deleteTrack = (trackId: string) => {
             Played {{ track.play_count }} times
         </div>
         <Link 
+            v-if="(page.props.auth as Auth).isAdmin"
             :href="route('tracks.edit', track.uuid)"
             class="rounded-full p-3 hover:bg-gray-600 transition-colors"
         >
             <Pencil class="w-5 h-5 text-gray-400" />
         </Link>
         <button
+            v-if="(page.props.auth as Auth).isAdmin"
             @click="deleteTrack(track.uuid)"
             class="rounded-full p-3 hover:bg-gray-600 transition-colors cursor-pointer"
         >

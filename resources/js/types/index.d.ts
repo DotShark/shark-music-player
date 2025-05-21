@@ -3,7 +3,8 @@ import type { LucideIcon } from 'lucide-vue-next';
 import type { Config } from 'ziggy-js';
 
 export interface Auth {
-    user: User;
+    user?: User;
+    isAdmin: true;
 }
 
 export interface BreadcrumbItem {
@@ -30,6 +31,7 @@ export interface User {
     id: number;
     name: string;
     email: string;
+    is_admin: boolean;
     avatar?: string;
     email_verified_at: string | null;
     created_at: string;

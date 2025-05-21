@@ -45,6 +45,7 @@ class HandleInertiaRequests extends Middleware
             'quote' => ['message' => trim($message), 'author' => trim($author)],
             'auth' => [
                 'user' => $request->user(),
+                'isAdmin' => $request->user()?->is_admin,
             ],
             'ziggy' => [
                 ...(new Ziggy)->toArray(),
