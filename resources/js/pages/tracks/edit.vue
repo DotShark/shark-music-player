@@ -3,21 +3,24 @@ import MusicLayout from '@/layouts/MusicLayout.vue';
 import PrimaryButton from '@/components/PrimaryButton.vue';
 import TextInput from '@/components/TextInput.vue';
 import ToggleSwitch from '@/components/ToggleSwitch.vue';
-import FileInput from '@/components/FileInput.vue';
 import { Head } from '@inertiajs/vue3';
 import { reactive } from 'vue';
+import { Track } from '@/types/Track';
 import { router } from '@inertiajs/vue3';
 
+type Props = {
+    track: Track
+};
+const props = defineProps<Props>();
+
 const form = reactive({
-    title: '',
-    artist: '',
-    displayed: false,
-    file: null as File | null,
-    image: null as File | null,
+    title: props.track.title,
+    artist: props.track.artist,
+    displayed: props.track.displayed,
 });
 
 function submit() {
-    router.post(route('tracks.store'), form, { forceFormData: true });
+    router.patch(route('tracks.update', props.track.uuid), form );
 }
 </script>
 
@@ -48,19 +51,7 @@ function submit() {
                     label="Displayed"
                     v-model="form.displayed"
                 />
-                <FileInput
-                    id="file"
-                    label="Music File"
-                    accept="audio/*"
-                    v-model="form.file"
-                />
-                <FileInput
-                    id="image"
-                    label="Cover Image"
-                    accept="image/*"
-                    v-model="form.image"
-                />
-                <button type="submit" class="p-2 bg-blue-500 rounded">Create</button>
+                <button type="submit" class="p-2 bg-blue-500 rounded">Update</button>
             </form>
         </template>
     </MusicLayout>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Track } from '@/types/Track';
-import { Play, Pause } from 'lucide-vue-next';
+import { Play, Pause, Pencil } from 'lucide-vue-next';
+import { Link } from '@inertiajs/vue3';
 
 defineProps<{
     track: Track,
@@ -45,5 +46,11 @@ const emit = defineEmits<{
         <div class="text-sm text-gray-400">
             Played {{ track.play_count }} times
         </div>
+        <Link 
+            :href="route('tracks.edit', track.uuid)"
+            class="rounded-full p-3 hover:bg-gray-600 transition-colors"
+        >
+            <Pencil class="w-5 h-5 text-gray-400" />
+        </Link>
     </li>
 </template>

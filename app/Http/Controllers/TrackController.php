@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTrackRequest;
 use App\Models\Track;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 
@@ -52,5 +53,28 @@ class TrackController extends Controller
         
         return redirect()->route('tracks.index')
             ->with('message', 'Track created successfully');
+    }
+
+    public function edit(Track $track)
+    {
+        return Inertia::render('tracks/edit', ['track' => $track]);
+    }
+
+    public function update(Request $request, Track $track)
+    {
+        $validated = $request->validate([
+            'title' => ['sometimes', 'string', 'max:255'],
+            'artist' => ['sometimes', 'string', 'max:255'],
+            'displayed' => ['sometimes', 'boolean'],
+        ]);
+
+        if ($validated['title']) $track->title = $validated['title'];
+        if ($validated['artist']) $track->artist = $validated['artist'];
+        if ($validated['displayed']) $track->displayed = $validated['displayed'];
+
+        $track->save();
+
+        return redirect()->route('tracks.index')
+            ->with('message', 'Track updated successfully');
     }
 }

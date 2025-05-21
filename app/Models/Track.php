@@ -23,4 +23,9 @@ class Track extends Model
         'displayed' => 'boolean',
         'play_count' => 'integer',
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
 }
