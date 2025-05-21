@@ -3,24 +3,22 @@ import MusicLayout from '@/layouts/MusicLayout.vue';
 import PrimaryButton from '@/components/PrimaryButton.vue';
 import TextInput from '@/components/TextInput.vue';
 import ToggleSwitch from '@/components/ToggleSwitch.vue';
-import { Head } from '@inertiajs/vue3';
-import { reactive } from 'vue';
+import { Head, useForm } from '@inertiajs/vue3';
 import { Track } from '@/types/Track';
-import { router } from '@inertiajs/vue3';
 
 type Props = {
     track: Track
 };
 const props = defineProps<Props>();
 
-const form = reactive({
+const form = useForm({
     title: props.track.title,
     artist: props.track.artist,
     displayed: props.track.displayed,
 });
 
 function submit() {
-    router.patch(route('tracks.update', props.track.uuid), form );
+    form.patch(route('tracks.update', props.track.uuid));
 }
 </script>
 
@@ -40,18 +38,27 @@ function submit() {
                     id="title"
                     label="Title"
                     v-model="form.title"
+                    :error="form.errors.title"
                 />
                 <TextInput
                     id="artist"
                     label="Artist"
                     v-model="form.artist"
+                    :error="form.errors.artist"
                 />
                 <ToggleSwitch
                     id="displayed"
                     label="Displayed"
                     v-model="form.displayed"
+                    :error="form.errors.displayed"
                 />
-                <button type="submit" class="p-2 bg-blue-500 rounded cursor-pointer">Update</button>
+                <button 
+                    type="submit" 
+                    class="p-2 bg-blue-500 rounded cursor-pointer disabled:opacity-50"
+                    :disabled="form.processing"
+                >
+                    Update
+                </button>
             </form>
         </template>
     </MusicLayout>

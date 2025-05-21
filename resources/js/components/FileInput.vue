@@ -4,6 +4,7 @@ defineProps<{
     label: string;
     id: string;
     accept: string;
+    error?: string;
 }>();
 
 const emit = defineEmits<{
@@ -26,6 +27,8 @@ function handleFileChange(event: Event) {
             :accept="accept"
             @change="handleFileChange"
             class="p-2 bg-gray-700 rounded text-gray-300"
+            :class="{ 'border border-red-500': error }"
         />
+        <p v-if="error" class="text-sm text-red-500">{{ error }}</p>
     </div>
 </template>

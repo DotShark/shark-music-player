@@ -3,6 +3,7 @@ defineProps<{
     modelValue: boolean;
     label: string;
     id: string;
+    error?: string;
 }>();
 
 defineEmits<{
@@ -27,5 +28,6 @@ defineEmits<{
                 :class="modelValue ? 'translate-x-6' : 'translate-x-1'"
             />
         </button>
+        <p v-if="error" class="text-sm text-red-500">{{ error }}</p>
     </div>
 </template>
