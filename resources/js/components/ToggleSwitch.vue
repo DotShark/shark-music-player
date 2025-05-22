@@ -20,7 +20,7 @@ defineEmits<{
             :id="id"
             :aria-checked="modelValue"
             @click="$emit('update:modelValue', !modelValue)"
-            class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 ease-in-out"
+            class="relative inline-flex h-6 w-11 items-center rounded-full cursor-pointer transition-colors duration-200 ease-in-out"
             :class="modelValue ? 'bg-blue-500' : 'bg-gray-700'"
         >
             <span 

@@ -7,13 +7,15 @@ import { Head, router } from '@inertiajs/vue3';
 import type { Playlist } from '@/types/Playlist';
 
 type Props = {
-    playlists: Playlist[]
-}
+    playlists: Playlist[];
+};
 
 defineProps<Props>();
 
-const handleDelete = (uuid: string) => {
-    router.delete(route('playlists.destroy', uuid));
+function deletePlaylist(playlistId: string) {
+    if (confirm('Are you sure you want to delete this playlist?')) {
+        router.delete(route('playlists.destroy', playlistId));
+    }
 };
 
 </script>
@@ -39,7 +41,7 @@ const handleDelete = (uuid: string) => {
                                 {{ playlist.title }}
                             </h3>
                             <button
-                                @click="handleDelete(playlist.uuid)"
+                                @click.stop.prevent="deletePlaylist(playlist.uuid)"
                                 class="rounded-full p-3 hover:bg-gray-600 transition-colors cursor-pointer"
                             >
                                 <Trash class="w-5 h-5 text-gray-400" />
