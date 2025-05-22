@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import MusicLayout from '@/layouts/MusicLayout.vue';
 import { Head } from '@inertiajs/vue3';
-import PrimaryButton from '@/components/PrimaryButton.vue';
+import OutlinedLink from '@/components/OutlinedLink.vue';
 </script>
 
 <template>
@@ -13,9 +13,9 @@ import PrimaryButton from '@/components/PrimaryButton.vue';
             <div class="flex flex-col items-center justify-center h-full">
                 <h1 class="text-5xl font-bold text-white">Welcome to DotShark Music</h1>
                 <p class="mt-4 text-lg text-gray-400">Discover your favorite tracks and artists.</p>
-                <PrimaryButton :href="route('tracks.index')" class="mt-6">
+                <OutlinedLink :href="route('tracks.index')" class="mt-6">
                     Explore Tracks
-                </PrimaryButton>
+                </OutlinedLink>
             </div>
         </template>
     </MusicLayout>

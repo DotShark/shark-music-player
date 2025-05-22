@@ -16,7 +16,7 @@ const emit = defineEmits<{
     'toggle-play': [trackId: string]
 }>();
 
-const deleteTrack = (trackId: string) => {
+function deleteTrack(trackId: string) {
     if (confirm('Are you sure you want to delete this track?')) {
         router.delete(route('tracks.destroy', trackId));
     }

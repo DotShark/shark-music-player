@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import MusicLayout from '@/layouts/MusicLayout.vue';
-import PrimaryButton from '@/components/PrimaryButton.vue';
+import OutlinedLink from '@/components/OutlinedLink.vue';
+import OutlinedButton from '@/components/OutlinedButton.vue';
 import TextInput from '@/components/TextInput.vue';
 import ToggleSwitch from '@/components/ToggleSwitch.vue';
 import FileInput from '@/components/FileInput.vue';
@@ -25,9 +26,9 @@ function submit() {
     <MusicLayout>
         <template #title>Add a track</template>
         <template #action>
-            <PrimaryButton :href="route('tracks.index')">
+            <OutlinedLink :href="route('tracks.index')">
                 Return to tracks
-            </PrimaryButton>
+            </OutlinedLink>
         </template>
         <template #content>
             <form @submit.prevent="submit" class="flex flex-col gap-4 p-8">
@@ -63,13 +64,9 @@ function submit() {
                     v-model="form.image"
                     :error="form.errors.image"
                 />
-                <button 
-                    type="submit" 
-                    class="p-2 bg-blue-500 rounded cursor-pointer disabled:opacity-50"
-                    :disabled="form.processing"
-                >
+                <OutlinedButton type="submit" :disabled="form.processing">
                     Create
-                </button>
+                </OutlinedButton>
             </form>
         </template>
     </MusicLayout>

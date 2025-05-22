@@ -15,14 +15,14 @@ class TrackController extends Controller
     {
         $tracks = Track::where('displayed', true)->get();
 
-        return Inertia::render('tracks/index', [
+        return Inertia::render('tracks/Index', [
             'tracks' => $tracks,
         ]);
     }
 
     public function create()
     {
-        return Inertia::render('tracks/create');
+        return Inertia::render('tracks/Create');
     }
 
     public function store(StoreTrackRequest $request)
@@ -58,7 +58,7 @@ class TrackController extends Controller
 
     public function edit(Track $track)
     {
-        return Inertia::render('tracks/edit', ['track' => $track]);
+        return Inertia::render('tracks/Edit', ['track' => $track]);
     }
 
     public function update(Request $request, Track $track)

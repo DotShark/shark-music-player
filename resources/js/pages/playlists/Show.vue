@@ -1,21 +1,20 @@
 <script setup lang="ts">
 import MusicLayout from '@/layouts/MusicLayout.vue';
+import OutlinedLink from '@/components/OutlinedLink.vue';
 import TrackItem from '@/components/Track.vue';
-import PrimaryButton from '@/components/PrimaryButton.vue';
-import { Head, usePage } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
+import type { Playlist } from '@/types/Playlist';
 import type { Track } from '@/types/Track';
-import { ref, onUnmounted, computed } from 'vue';
-import { Auth } from '@/types';
+import { ref, onUnmounted } from 'vue';
 
 type Props = {
-    tracks: Track[]
+    playlist: Playlist & {
+        tracks: Track[]
+    }
 }
 
 const props = defineProps<Props>();
 
-const page = usePage();
-
-const searchFilter = ref('');
 const audio = ref<HTMLAudioElement | null>(null);
 const progress = ref(0);
 const currentTrackId = ref<string | null>(null);
@@ -27,7 +26,7 @@ const updateProgress = () => {
 };
 
 const handleTogglePlay = (trackId: string) => {
-    const track = props.tracks.find(t => t.uuid === trackId);
+    const track = props.playlist.tracks.find(t => t.uuid === trackId);
     if (!track) return;
 
     if (currentTrackId.value === trackId) {
@@ -54,15 +53,6 @@ const handleTogglePlay = (trackId: string) => {
     currentTrackId.value = trackId;
 };
 
-const filteredTracks = computed(() => {
-    if (!searchFilter.value) return props.tracks;
-    const search = searchFilter.value.toLowerCase();
-    return props.tracks.filter(track => 
-        track.title.toLowerCase().includes(search) ||
-        track.artist.toLowerCase().includes(search)
-    );
-});
-
 onUnmounted(() => {
     if (audio.value) {
         audio.value.removeEventListener('timeupdate', updateProgress);
@@ -72,28 +62,28 @@ onUnmounted(() => {
 </script>
 
 <template>
-
-    <Head title="Tracks" />
+    <Head :title="playlist.title" />
 
     <MusicLayout>
-        <template #title>Tracks</template>
+        <template #title>{{ playlist.title }}</template>
         <template #action>
-            <PrimaryButton v-if="(page.props.auth as Auth).isAdmin" :href="route('tracks.create')">
-                Add a track
-            </PrimaryButton>
+            <OutlinedLink :href="route('playlists.index')">
+                All playlists
+            </OutlinedLink>
         </template>
         <template #content>
             <div class="flex flex-col p-8 gap-4">
-                <input
-                    type="text"
-                    v-model="searchFilter"
-                    placeholder="Search tracks..."
-                    class="w-full px-4 py-2 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-                <ul class="flex flex-col gap-2">
-                    <TrackItem v-for="track in filteredTracks" :key="track.uuid" :track="track"
+                <div v-if="playlist.tracks.length === 0" class="text-center text-gray-500">
+                    This playlist is empty.
+                </div>
+                <ul v-else class="flex flex-col gap-2">
+                    <TrackItem 
+                        v-for="track in playlist.tracks" 
+                        :key="track.uuid" 
+                        :track="track"
                         :is-playing="currentTrackId === track.uuid && !audio?.paused"
-                        :progress="currentTrackId === track.uuid ? progress : 0" @toggle-play="handleTogglePlay"
+                        :progress="currentTrackId === track.uuid ? progress : 0"
+                        @toggle-play="handleTogglePlay"
                     />
                 </ul>
             </div>
